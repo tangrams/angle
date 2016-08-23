@@ -106,6 +106,8 @@ add_library(angle_common STATIC
     src/common/utilities.h
     src/common/version.h)
 
+target_include_directories(angle_common PUBLIC src/common/third_party/numerics)
+
 set(ANGLE_TRANSLATOR_LIB_SOURCES
     src/compiler/translator/BaseTypes.h
     src/compiler/translator/BuiltInFunctionEmulator.cpp
@@ -334,8 +336,8 @@ set(ANGLE_SOURCES
     src/libANGLE/Constants.h
     src/libANGLE/Context.cpp
     src/libANGLE/Context.h
-    src/libANGLE/Data.cpp
-    src/libANGLE/Data.h
+    src/libANGLE/ContextState.cpp
+    src/libANGLE/ContextState.h
     src/libANGLE/Debug.cpp
     src/libANGLE/Debug.h
     src/libANGLE/Device.cpp
@@ -403,6 +405,8 @@ set(ANGLE_SOURCES
     src/libANGLE/queryconversions.h
     src/libANGLE/renderer/BufferImpl.h
     src/libANGLE/renderer/CompilerImpl.h
+    src/libANGLE/renderer/ContextImpl.cpp
+    src/libANGLE/renderer/ContextImpl.h
     src/libANGLE/renderer/DeviceImpl.cpp
     src/libANGLE/renderer/DeviceImpl.h
     src/libANGLE/renderer/DisplayImpl.cpp
@@ -411,15 +415,14 @@ set(ANGLE_SOURCES
     src/libANGLE/renderer/FenceSyncImpl.h
     src/libANGLE/renderer/FramebufferImpl.h
     src/libANGLE/renderer/ImageImpl.h
-    src/libANGLE/renderer/ImplFactory.h
+    src/libANGLE/renderer/EGLImplFactory.h
+    src/libANGLE/renderer/GLImplFactory.h
     src/libANGLE/renderer/ProgramImpl.h
     src/libANGLE/renderer/QueryImpl.h
     src/libANGLE/renderer/RenderbufferImpl.h
-    src/libANGLE/renderer/Renderer.cpp
-    src/libANGLE/renderer/Renderer.h
     src/libANGLE/renderer/SamplerImpl.h
     src/libANGLE/renderer/ShaderImpl.h
-    src/libANGLE/renderer/StreamImpl.h
+    src/libANGLE/renderer/StreamProducerImpl.h
     src/libANGLE/renderer/SurfaceImpl.cpp
     src/libANGLE/renderer/SurfaceImpl.h
     src/libANGLE/renderer/TextureImpl.h
@@ -463,6 +466,8 @@ if(ANGLE_ENABLE_D3D9)
         src/libANGLE/renderer/d3d/d3d9/Blit9.h
         src/libANGLE/renderer/d3d/d3d9/Buffer9.cpp
         src/libANGLE/renderer/d3d/d3d9/Buffer9.h
+        src/libANGLE/renderer/d3d/d3d9/Context9.cpp
+        src/libANGLE/renderer/d3d/d3d9/Context9.h
         src/libANGLE/renderer/d3d/d3d9/DebugAnnotator9.cpp
         src/libANGLE/renderer/d3d/d3d9/DebugAnnotator9.h
         src/libANGLE/renderer/d3d/d3d9/Fence9.cpp
@@ -518,6 +523,8 @@ if(ANGLE_ENABLE_D3D11)
         src/libANGLE/renderer/d3d/d3d11/Blit11.h
         src/libANGLE/renderer/d3d/d3d11/Buffer11.cpp
         src/libANGLE/renderer/d3d/d3d11/Buffer11.h
+        src/libANGLE/renderer/d3d/d3d11/Context11.cpp
+        src/libANGLE/renderer/d3d/d3d11/Context11.h
         src/libANGLE/renderer/d3d/d3d11/Clear11.cpp
         src/libANGLE/renderer/d3d/d3d11/Clear11.h
         src/libANGLE/renderer/d3d/d3d11/copyvertex.h
@@ -609,8 +616,8 @@ if(ANGLE_ENABLE_D3D11)
         src/libANGLE/renderer/d3d/d3d11/shaders/compiled/swizzleui3dps.h
         src/libANGLE/renderer/d3d/d3d11/StateManager11.cpp
         src/libANGLE/renderer/d3d/d3d11/StateManager11.h
-        src/libANGLE/renderer/d3d/d3d11/Stream11.cpp
-        src/libANGLE/renderer/d3d/d3d11/Stream11.h
+        src/libANGLE/renderer/d3d/d3d11/StreamProducerNV12.cpp
+        src/libANGLE/renderer/d3d/d3d11/StreamProducerNV12.h
         src/libANGLE/renderer/d3d/d3d11/SwapChain11.cpp
         src/libANGLE/renderer/d3d/d3d11/SwapChain11.h
         src/libANGLE/renderer/d3d/d3d11/TextureStorage11.cpp
@@ -716,6 +723,8 @@ if(ANGLE_ENABLE_OPENGL)
         src/libANGLE/renderer/gl/BufferGL.h
         src/libANGLE/renderer/gl/CompilerGL.cpp
         src/libANGLE/renderer/gl/CompilerGL.h
+        src/libANGLE/renderer/gl/ContextGL.cpp
+        src/libANGLE/renderer/gl/ContextGL.h
         src/libANGLE/renderer/gl/DisplayGL.cpp
         src/libANGLE/renderer/gl/DisplayGL.h
         src/libANGLE/renderer/gl/FenceNVGL.cpp
