@@ -1,0 +1,18 @@
+language: cpp
+compiler: clang
+sudo: required
+dist: trusty
+addons:
+  apt:
+    packages:
+      - xorg-dev
+      - libxi6
+      - libpci-dev
+before_script:
+  - git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+  - export PATH=`pwd`/depot_tools:"$PATH"
+  - export GYP_GENERATORS=ninja
+script:
+  - python scripts/bootstrap.py
+  - gclient sync
+  - ninja -C out/Release
